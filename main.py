@@ -1,5 +1,4 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget
 import openpyxl
 from scipy.stats import chi2
 import matrix
