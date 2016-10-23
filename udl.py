@@ -8,7 +8,16 @@ import excel_transfer
 class UDL:
     def __init__(self):
         self.alpha = matrix.Vector([], "Initial vectror")
+        self.arnum = matrix.Vector([], "Array of random numbers")
         self.a = matrix.Matrix([[0]], "Initial matrix")
+        self.data_array = matrix.Vector([], "Array of our data :)")
+        self.amount_of_intervals = 0
+        self.confidence = 0.95
+        self.chi_squared = None
+        self.critical_value = None
+        self.p_value = None
+        self.result = None
+
         self.makedafault()
         self.commands = {
             "none": 0,
@@ -128,10 +137,22 @@ class UDL:
         return self.transferlist(param='square')
 
     def printresult(self):
-
+        count, bins, ignored = plt.hist(self.data_array, self.amount_of_intervals, normed=True)
+        plt.plot(bins, np.ones_like(bins), linewidth=2, color='r')
         plt.show()
         pass
 
+    def show_present_data(self):
+        print("Amount of intervals:", self.amount_of_intervals)
+        print("Confidence:", self.confidence)
+        print("Chi-squared:", self.chi_squared)
+        print("Critical value:", self.critical_value)
+        print("P-value:", self.p_value)
+        print("Result:", self.result)
+
+    def generate_random_numbers(self):
+        #Here we will generate random numbers
+        pass
 
     def transferlist(self):
         self.exeldata = excel_transfer.Excel()
