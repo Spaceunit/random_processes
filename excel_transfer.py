@@ -118,7 +118,14 @@ class Excel:
             wb = openpyxl.load_workbook(filepath)
             sheet = wb.get_sheet_by_name(self.sheetname)
             # sheet.cell(row=i, column=self.drow).value
-            return matrix.Vector([sheet.cell(row=k, column=i).value for i in range(1, sheet.max_column + 1)], "Initial vector")
+            return matrix.Vector([sheet.cell(row=1, column=i).value for i in range(1, sheet.max_column + 1)], "Initial vector")
+            pass
+        elif param == "vvector":
+            filepath = self.getfilepath()
+            wb = openpyxl.load_workbook(filepath)
+            sheet = wb.get_sheet_by_name(self.sheetname)
+            # sheet.cell(row=i, column=self.drow).value
+            return matrix.Vector([sheet.cell(row=i, column=1).value for i in range(1, sheet.max_row + 1)], "Initial vector")
             pass
         else:
             return 1
