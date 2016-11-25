@@ -1,3 +1,4 @@
+import numpy as np
 from numpy import histogram
 from scipy.stats import chi2
 
@@ -38,4 +39,13 @@ class CheckHUD:
 
     def checkstate(self):
         print(True)
+
+    def generate_random_numbers(self, interval, size):
+        array_of_random_numbers = None
+        if interval[0] < interval[1]:
+            array_of_random_numbers = np.random.uniform(interval[0], interval[1], size=size)
+        else:
+            print("Wrong input!!!")
+            array_of_random_numbers = None
+        return array_of_random_numbers
 

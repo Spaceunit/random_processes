@@ -1,6 +1,7 @@
 import openpyxl
 import matrix
 import numpy as np
+import uniform_distribution as ud
 import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
 import excel_transfer
@@ -10,8 +11,9 @@ class UDL:
         self.alpha = matrix.Vector([], "Initial vectror")
         self.arnum = matrix.Vector([], "Array of random numbers")
         self.a = matrix.Matrix([[0]], "Initial matrix")
+        #In this case data_array is array of random numbers
         self.data_array = matrix.Vector([], "Array of our data :)")
-        self.amount_of_intervals = 0
+        self.amount_of_intervals = 1
         self.confidence = 0.95
         self.chi_squared = None
         self.critical_value = None
@@ -19,6 +21,9 @@ class UDL:
         self.result = None
 
         self.makedafault()
+
+        self.chud = ud.CheckHUD(self.alpha.vector, len(self.alpha.vector), self.confidence)
+
         self.commands = {
             "none": 0,
             "exit": 1,
@@ -41,7 +46,8 @@ class UDL:
         self.setpath("./")
         self.setfilename("file.xlsx")
         self.setsheetname("Sheet1")
-        self.acount = 500
+        self.acount = 1000
+        self.amount_of_intervals = 10
 
 
         # alpha in numpy format of array
@@ -143,6 +149,7 @@ class UDL:
         pass
 
     def show_present_data(self):
+        print("Present data:")
         print("Amount of intervals:", self.amount_of_intervals)
         print("Confidence:", self.confidence)
         print("Chi-squared:", self.chi_squared)
@@ -150,8 +157,11 @@ class UDL:
         print("P-value:", self.p_value)
         print("Result:", self.result)
 
+        print("Data array:", self.data_array)
+
     def generate_random_numbers(self):
         #Here we will generate random numbers
+        self.data_array = self.chud.generate_random_numbers([0.0, 1.0], self.acount)
         pass
 
     def transferlist(self):
@@ -160,4 +170,7 @@ class UDL:
 
 
     def resolve(self):
+        self.generate_random_numbers()
+        self.show_present_data()
+        self.printresult()
         pass
