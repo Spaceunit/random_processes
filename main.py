@@ -81,7 +81,7 @@ class Work:
                 pass
         pass
 
-    def inputnewdata(self):
+    def inputnewdata0(self):
         task = 0
         self.a = matrix.Matrix([], "Initial matrix")
         while (task != 1):

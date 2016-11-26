@@ -121,6 +121,7 @@ class UDL:
                 self.resolve()
                 pass
             elif task == 10:
+                self.transferlist()
                 pass
         pass
 
@@ -143,6 +144,7 @@ class UDL:
         return self.transferlist(param='square')
 
     def printresult(self):
+        #print(self.result_data)
         count, bins, ignored = plt.hist(self.data_array, self.amount_of_intervals, normed=True)
         plt.plot(bins, np.ones_like(bins), linewidth=2, color='r')
         plt.show()
@@ -172,5 +174,13 @@ class UDL:
     def resolve(self):
         self.generate_random_numbers()
         self.show_present_data()
+        self.result_data = self.chud.checkHUD(self.data_array, self.amount_of_intervals, self.confidence)
+        self.sync_data()
+        self.show_present_data()
         self.printresult()
         pass
+
+    def sync_data(self):
+        self.chi_squared = self.result_data['chi_sq']
+        self.critical_value = self.result_data['critical']
+        self.p_value = self.result_data['p_value']
