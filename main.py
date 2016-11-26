@@ -7,6 +7,7 @@ import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
 import excel_transfer
 import udl
+import rvm
 
 class Work:
     def __init__(self):
@@ -23,7 +24,8 @@ class Work:
             "show scount": 7,
             "acc": 8,
             "mk": 9,
-            "udl": 10
+            "udl": 10,
+            "rvm": 11
         }
         pass
 
@@ -76,6 +78,11 @@ class Work:
                 self.makedafault()
             elif task == 10:
                 Lab0 = udl.UDL()
+                Lab0.importparam(self.accuracy)
+                Lab0.dostaff()
+                pass
+            elif task == 11:
+                Lab0 = rvm.RVM()
                 Lab0.importparam(self.accuracy)
                 Lab0.dostaff()
                 pass

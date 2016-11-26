@@ -13,6 +13,9 @@ class MCintegral:
         integral = (float(b - a) / amount_of_intervals) * s
         return integral
 
-
     def execute_expression(self, function, x):
         return eval(function)
+
+    def count(self, expression, boundary, amount_of_intervals):
+        result = self.monte_сarlo_method(expression, boundary[0], boundary[1], amount_of_intervals)
+        return result
