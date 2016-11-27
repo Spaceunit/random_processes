@@ -1,19 +1,21 @@
 import openpyxl
+import math
 import matrix
 import numpy as np
 import uniform_distribution as ud
 import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
 import excel_transfer
+import build_histogram
 
-class UDL:
+class BH:
     def __init__(self):
         self.alpha = matrix.Vector([], "Initial vectror")
         self.arnum = matrix.Vector([], "Array of random numbers")
         self.a = matrix.Matrix([[0]], "Initial matrix")
         #In this case data_array is array of random numbers
         self.data_array = matrix.Vector([], "Array of our data :)")
-        self.amount_of_intervals = 1
+        self.amount_of_numbers = 1
         self.confidence = 0.95
         self.chi_squared = None
         self.critical_value = None
@@ -34,7 +36,8 @@ class UDL:
             "show slist": 6,
             "mk": 8,
             "start": 9,
-            "transfer list": 10
+            "transfer list": 10,
+            "exp list": 11
 
         }
         pass
@@ -45,9 +48,11 @@ class UDL:
     def makedafault(self):
         self.setpath("./")
         self.setfilename("file.xlsx")
-        self.setsheetname("Sheet1")
+        self.setsheetname("Sheet2")
         self.acount = 1000
-        self.amount_of_intervals = 10
+        self.amount_of_numbers = 1000
+        self.sample_size = 10
+        self.amount_of_tries = 100
 
 
         # alpha in numpy format of array
@@ -99,7 +104,8 @@ class UDL:
         task = 0
         while (task != 1):
             print('')
-            print("Uniform distribution law (task1) v0.0001 beta task #5")
+            print("Building histogram by uniform distribution (task4) v0.0002 beta task #5")
+            print("Modeling random values witch uniform distributed on current area...")
             print('')
             task = self.enterCommand()
             if (task == 2):
@@ -123,6 +129,9 @@ class UDL:
             elif task == 10:
                 self.transferlist()
                 pass
+            elif task == 11:
+                #self.show_expression_list()
+                pass
         pass
 
     def inputnewdata(self):
@@ -145,21 +154,17 @@ class UDL:
 
     def printresult(self):
         #print(self.result_data)
-        count, bins, ignored = plt.hist(self.data_array, self.amount_of_intervals, normed=True)
-        plt.plot(bins, np.ones_like(bins), linewidth=2, color='r')
+        result = build_histogram.BH.get_data_for_histogram(self.data_array, self.sample_size, self.amount_of_tries)
+        plt.xlim(0, 1)
+        plt.hist(result, 10)
         plt.show()
         pass
 
     def show_present_data(self):
-        print("Present data:")
-        print("Amount of intervals:", self.amount_of_intervals)
-        print("Confidence:", self.confidence)
-        print("Chi-squared:", self.chi_squared)
-        print("Critical value:", self.critical_value)
-        print("P-value:", self.p_value)
-        print("Result:", self.result)
-
-        print("Data array:", self.data_array)
+        print("Sample size:", self.sample_size)
+        print("Amount of tries:", self.amount_of_tries)
+        print("Amount of numbers:", self.amount_of_numbers)
+        pass
 
     def generate_random_numbers(self):
         #Here we will generate random numbers
@@ -174,13 +179,13 @@ class UDL:
     def resolve(self):
         self.generate_random_numbers()
         self.show_present_data()
-        self.result_data = self.chud.checkHUD(self.data_array, self.amount_of_intervals, self.confidence)
-        self.sync_data()
-        self.show_present_data()
         self.printresult()
         pass
 
     def sync_data(self):
-        self.chi_squared = self.result_data['chi_sq']
-        self.critical_value = self.result_data['critical']
-        self.p_value = self.result_data['p_value']
+        pass
+# 'x**7 + x**5 + x**3' [0,1]
+# '2 * sin(3*x)' [0, math.pi]
+# '1 / ((x + 1) * sqrt(x))' [0, 100000] amount_of_intervals = amount_of_intervals * 5000
+# \u00D7
+# \u00BD 1/2

@@ -1,19 +1,21 @@
 import openpyxl
+import math
 import matrix
 import numpy as np
 import uniform_distribution as ud
 import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
 import excel_transfer
+import gaussian_distribution
 
-class UDL:
+class MGD:
     def __init__(self):
         self.alpha = matrix.Vector([], "Initial vectror")
         self.arnum = matrix.Vector([], "Array of random numbers")
         self.a = matrix.Matrix([[0]], "Initial matrix")
         #In this case data_array is array of random numbers
         self.data_array = matrix.Vector([], "Array of our data :)")
-        self.amount_of_intervals = 1
+        self.amount_of_numbers = 1
         self.confidence = 0.95
         self.chi_squared = None
         self.critical_value = None
@@ -34,7 +36,8 @@ class UDL:
             "show slist": 6,
             "mk": 8,
             "start": 9,
-            "transfer list": 10
+            "transfer list": 10,
+            "exp list": 11
 
         }
         pass
@@ -45,9 +48,11 @@ class UDL:
     def makedafault(self):
         self.setpath("./")
         self.setfilename("file.xlsx")
-        self.setsheetname("Sheet1")
+        self.setsheetname("Sheet2")
         self.acount = 1000
-        self.amount_of_intervals = 10
+        self.amount_of_numbers = 1000
+        self.sample_size = 10
+        self.amount_of_tries = 100
 
 
         # alpha in numpy format of array
@@ -99,7 +104,8 @@ class UDL:
         task = 0
         while (task != 1):
             print('')
-            print("Uniform distribution law (task1) v0.0001 beta task #5")
+            print("Computing by Monte Carlo`s method (task3) v0.0002 beta task #5")
+            print("Modeling random values witch uniform distributed on current area...")
             print('')
             task = self.enterCommand()
             if (task == 2):
@@ -123,6 +129,9 @@ class UDL:
             elif task == 10:
                 self.transferlist()
                 pass
+            elif task == 11:
+                #self.show_expression_list()
+                pass
         pass
 
     def inputnewdata(self):
@@ -144,22 +153,32 @@ class UDL:
         return self.transferlist(param='square')
 
     def printresult(self):
-        #print(self.result_data)
-        count, bins, ignored = plt.hist(self.data_array, self.amount_of_intervals, normed=True)
-        plt.plot(bins, np.ones_like(bins), linewidth=2, color='r')
-        plt.show()
-        pass
+
+        print("Distribution 1:")
+        print("Chi-squared", self.result['distr1']['chi_squared'])
+        print("Critical", self.result['distr1']['critical'])
+        print("P-value", self.result['distr1']['p_value'])
+
+        print("Distribution 2:")
+        print("Chi-squared", self.result['distr2']['chi_squared'])
+        print("Critical", self.result['distr2']['critical'])
+        print("P-value", self.result['distr2']['p_value'])
+
+        print("Distribution 3:")
+        print("Chi-squared", self.result['distr3']['chi_squared'])
+        print("Critical", self.result['distr3']['critical'])
+        print("P-value", self.result['distr3']['p_value'])
+
+        print("Distribution 4:")
+        print("Chi-squared", self.result['distr4']['chi_squared'])
+        print("Critical", self.result['distr4']['critical'])
+        print("P-value", self.result['distr4']['p_value'])
 
     def show_present_data(self):
-        print("Present data:")
-        print("Amount of intervals:", self.amount_of_intervals)
-        print("Confidence:", self.confidence)
-        print("Chi-squared:", self.chi_squared)
-        print("Critical value:", self.critical_value)
-        print("P-value:", self.p_value)
-        print("Result:", self.result)
-
-        print("Data array:", self.data_array)
+        print("Sample size:", self.sample_size)
+        print("Amount of tries:", self.amount_of_tries)
+        print("Amount of numbers:", self.amount_of_numbers)
+        pass
 
     def generate_random_numbers(self):
         #Here we will generate random numbers
@@ -174,13 +193,14 @@ class UDL:
     def resolve(self):
         self.generate_random_numbers()
         self.show_present_data()
-        self.result_data = self.chud.checkHUD(self.data_array, self.amount_of_intervals, self.confidence)
-        self.sync_data()
-        self.show_present_data()
+        self.result = gaussian_distribution.Gaussiandistribution.model_gaussian_distribution(self.amount_of_numbers)
         self.printresult()
         pass
 
     def sync_data(self):
-        self.chi_squared = self.result_data['chi_sq']
-        self.critical_value = self.result_data['critical']
-        self.p_value = self.result_data['p_value']
+        pass
+# 'x**7 + x**5 + x**3' [0,1]
+# '2 * sin(3*x)' [0, math.pi]
+# '1 / ((x + 1) * sqrt(x))' [0, 100000] amount_of_intervals = amount_of_intervals * 5000
+# \u00D7
+# \u00BD 1/2

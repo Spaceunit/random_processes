@@ -8,6 +8,8 @@ import matplotlib.pyplot as plt
 import excel_transfer
 import udl
 import rvm
+import bh
+import mgd
 
 class Work:
     def __init__(self):
@@ -25,7 +27,9 @@ class Work:
             "acc": 8,
             "mk": 9,
             "udl": 10,
-            "rvm": 11
+            "rvm": 11,
+            "bh": 12,
+            "mgd": 13
         }
         pass
 
@@ -83,6 +87,16 @@ class Work:
                 pass
             elif task == 11:
                 Lab0 = rvm.RVM()
+                Lab0.importparam(self.accuracy)
+                Lab0.dostaff()
+                pass
+            elif task == 12:
+                Lab0 = bh.BH()
+                Lab0.importparam(self.accuracy)
+                Lab0.dostaff()
+                pass
+            elif task == 13:
+                Lab0 = mgd.MGD()
                 Lab0.importparam(self.accuracy)
                 Lab0.dostaff()
                 pass
