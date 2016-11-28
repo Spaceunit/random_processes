@@ -15,6 +15,10 @@ class Work:
     def __init__(self):
         self.a = matrix.Matrix([[0]],"Initial matrix")
         self.accuracy = 3
+        self.amount_of_numbers = 1
+        self.amount_of_intervals = 1
+        self.intervals = 1
+        self.amount_of_tries = 1
         self.commands = {
             "none": 0,
             "exit": 1,

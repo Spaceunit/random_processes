@@ -7,10 +7,15 @@ from scipy.stats import chi2
 class Gaussiandistribution:
     @staticmethod
     def model_gaussian_distribution(amount_of_numbers):
-
+        # xi U+03C7 U+03B1 {χi} = {sqrt(-2 * log[10](α[1])) * cos(2 * pi * α[2])}
         xi1 = [sqrt(-2 * log(random())) * cos(2 * pi * random()) for _ in range(amount_of_numbers)]
+
+        # xi U+03C7 U+03B1 {χi} = {sqrt(-2 * log[10](α[1])) * sin(2 * pi * α[2])}
         xi2 = [sqrt(-2 * log(random())) * sin(2 * pi * random()) for _ in range(amount_of_numbers)]
+
+        # xi U+03C7 U+03B1 {χi} = Σ(2 * ())
         xi3 = [sum(2 * (random() - 0.5) for _ in range(3)) for i in range(amount_of_numbers)]
+
         xi4 = [sum(random() - 0.5 for _ in range(12)) for i in range(amount_of_numbers)]
         xi5 = [sum(0.5 * (random() - 0.5) for _ in range(48)) for i in range(amount_of_numbers)]
 
