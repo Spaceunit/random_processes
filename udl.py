@@ -34,7 +34,8 @@ class UDL:
             "show slist": 6,
             "mk": 8,
             "start": 9,
-            "transfer list": 10
+            "transfer list": 10,
+            "new intervals": 11
 
         }
         pass
@@ -46,12 +47,13 @@ class UDL:
         self.setpath("./")
         self.setfilename("file.xlsx")
         self.setsheetname("Sheet1")
-        self.acount = 1000
+        self.confidence = 0.95
+        self.alphas_count = 1000
         self.amount_of_intervals = 10
 
 
         # alpha in numpy format of array
-        self.anp = np.random.sample(self.acount)
+        self.anp = np.random.sample(self.alphas_count)
         # alpha in matrix format of array (vector format)
         self.alpha = matrix.Vector(self.anp.tolist(),"Random values")
         pass
@@ -123,14 +125,39 @@ class UDL:
             elif task == 10:
                 self.transferlist()
                 pass
+            elif (task == 11):
+                self.input_new_count_of_intervals()
+                pass
         pass
 
     def inputnewdata(self):
         task = 0
         print('')
-        print("Enter count of alphas:")
+        print("Enter count of alphas (numbers, default 1000):")
         while (task != 1):
-            self.accuracy = int(input("-> "))
+            self.alphas_count = int(input("-> "))
+            print("Input is correct? (enter - yes/n - no)")
+            command = input("-> ")
+            if (command != "n"):
+                task = 1
+
+    def input_new_count_of_intervals(self):
+        task = 0
+        print('')
+        print("Enter count of intervals (numbers, default 10):")
+        while (task != 1):
+            self.alphas_count = int(input("-> "))
+            print("Input is correct? (enter - yes/n - no)")
+            command = input("-> ")
+            if (command != "n"):
+                task = 1
+
+    def input_new_confidence(self):
+        task = 0
+        print('')
+        print("Enter confidence (default 0.95):")
+        while (task != 1):
+            self.amount_of_intervals = float(input("-> "))
             print("Input is correct? (enter - yes/n - no)")
             command = input("-> ")
             if (command != "n"):
@@ -163,7 +190,7 @@ class UDL:
 
     def generate_random_numbers(self):
         #Here we will generate random numbers
-        self.data_array = self.chud.generate_random_numbers([0.0, 1.0], self.acount)
+        self.data_array = self.chud.generate_random_numbers([0.0, 1.0], self.alphas_count)
         pass
 
     def transferlist(self):
