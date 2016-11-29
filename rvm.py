@@ -38,7 +38,9 @@ class RVM:
             "mk": 8,
             "start": 9,
             "transfer list": 10,
-            "exp list": 11
+            "exp list": 11,
+            "new intervals": 12,
+            "new addn": 13
 
         }
         pass
@@ -51,6 +53,8 @@ class RVM:
         self.setfilename("file.xlsx")
         self.setsheetname("Sheet2")
         self.acount = 1000
+        self.joined_infinity = 1000
+        self.additional_numbers = 5000
         self.amount_of_intervals = 10
 
         self.result = {}
@@ -66,7 +70,7 @@ class RVM:
         self.result['integral2']['boundary'] = (0, math.pi)
 
         self.result['integral3']['expression'] = '1 / ((x + 1) * sqrt(x))'
-        self.result['integral3']['boundary'] = (0, 100000)
+        self.result['integral3']['boundary'] = (0, self.joined_infinity)
 
 
         # alpha in numpy format of array
@@ -145,6 +149,13 @@ class RVM:
                 pass
             elif task == 11:
                 self.show_expression_list()
+
+            elif task == 12:
+                self.input_new_count_of_intervals()
+                pass
+            elif task == 13:
+                self.input_new_count_of_additional_numbers()
+                pass
         pass
 
     def inputnewdata(self):
@@ -153,6 +164,28 @@ class RVM:
         print("Enter count of alphas:")
         while (task != 1):
             self.accuracy = int(input("-> "))
+            print("Input is correct? (enter - yes/n - no)")
+            command = input("-> ")
+            if (command != "n"):
+                task = 1
+
+    def input_new_count_of_intervals(self):
+        task = 0
+        print('')
+        print("Enter count of intervals (numbers, default 10):")
+        while (task != 1):
+            self.amount_of_intervals = int(input("-> "))
+            print("Input is correct? (enter - yes/n - no)")
+            command = input("-> ")
+            if (command != "n"):
+                task = 1
+
+    def input_new_count_of_additional_numbers(self):
+        task = 0
+        print('')
+        print("Enter count of additional numbers (numbers, default 5000):")
+        while (task != 1):
+            self.additional_numbers = int(input("-> "))
             print("Input is correct? (enter - yes/n - no)")
             command = input("-> ")
             if (command != "n"):
@@ -175,9 +208,9 @@ class RVM:
     def show_present_data(self):
         print("Present data:")
         print("Amount of intervals:", self.amount_of_intervals)
-        print("x\u005E7 + x\u005E5 + x\u005E3:", self.result['integral1']['result'])
-        print("2\u00D7sin(3\u00D7x):", self.result['integral2']['result'])
-        print("1\u00F7((x + 1)\u00D7(x)\u005E(\u00BD)):", self.result['integral3']['result'])
+        print("\u222B[0;1]( x\u005E7 + x\u005E5 + x\u005E3 )d(x):", self.result['integral1']['result'])
+        print("\u222B[0;\u03C0]( 2\u00D7sin(3\u00D7x) )d(x):", self.result['integral2']['result'])
+        print("\u222B[0;\u221E]( 1\u00F7((x + 1)\u00D7(x)\u005E(\u00BD)) )d(x):", self.result['integral3']['result'])
         #
         # print("Data array:", self.data_array)
 
@@ -199,16 +232,11 @@ class RVM:
 
         self.count_integral('integral1', self.amount_of_intervals)
         self.count_integral('integral2', self.amount_of_intervals)
-        self.count_integral('integral3', self.amount_of_intervals * 5000)
+        self.count_integral('integral3', self.amount_of_intervals * self.additional_numbers)
 
         self.show_present_data()
         # self.printresult()
         pass
-
-    def sync_data(self):
-        self.chi_squared = self.result_data['chi_sq']
-        self.critical_value = self.result_data['critical']
-        self.p_value = self.result_data['p_value']
 
     def count_integral(self, expression_name, amount_of_intervals):
         intervals = amount_of_intervals

@@ -58,6 +58,15 @@ class Work:
         print('')
         print("Help v0.001")
         print("Author of this program: Sir Oleksiy Polshchak")
+        print("It is program for lab #1\n",
+              "\u2022 enter [udl] to choose task #1\n",
+              " \u2023 Description: uniform distribution law\n",
+              "\u2022 enter [rvm] to choose task #2\n",
+              " \u2023 Description: calculations of Monte Carlo`s integral\n",
+              "\u2022 enter [bh] to choose task #3\n",
+              " \u2023 Description: building histogram of uniform distribution\n",
+              "\u2022 enter [mgd] to choose task #4\n",
+              " \u2023 Description: modeling gaussian distribution\n")
         self.showCommands()
 
     def dostaff(self):

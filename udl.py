@@ -186,7 +186,7 @@ class UDL:
         print("P-value:", self.p_value)
         print("Result:", self.result)
 
-        print("Data array:", self.data_array)
+        #print("Data array:", self.data_array)
 
     def generate_random_numbers(self):
         #Here we will generate random numbers

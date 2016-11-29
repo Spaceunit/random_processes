@@ -6,10 +6,14 @@ class MCintegral:
     def monte_сarlo_method(self, expression, a, b, amount_of_intervals):
         #'a' and 'b' are borders of integral
         random_numbers = uniform(a, b, amount_of_intervals)
+        print("Message #1:", expression)
+        print("Random numbers are ready...\n")
         # s - is sum of literals (result of expression)
         # program call function witch in this case expression, so program run expression and
         # return result
         s = sum(self.execute_expression(expression, random_numbers[i]) for i in range(len(random_numbers)))
+        print("Message #2:", expression)
+        print("Sum is ready...\n")
         integral = (float(b - a) / amount_of_intervals) * s
         return integral
 

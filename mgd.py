@@ -16,6 +16,7 @@ class MGD:
         #In this case data_array is array of random numbers
         self.data_array = matrix.Vector([], "Array of our data :)")
         self.amount_of_numbers = 1
+        self.amount_of_intervals = 9
         self.confidence = 0.95
         self.chi_squared = None
         self.critical_value = None
@@ -50,9 +51,13 @@ class MGD:
         self.setfilename("file.xlsx")
         self.setsheetname("Sheet2")
         self.acount = 1000
+
         self.amount_of_numbers = 1000
         self.sample_size = 10
         self.amount_of_tries = 100
+
+        self.amount_of_intervals = 9
+        self.confidence = 0.95
 
 
         # alpha in numpy format of array
@@ -159,20 +164,33 @@ class MGD:
         print("Critical", self.result['distr1']['critical'])
         print("P-value", self.result['distr1']['p_value'])
 
+        print("\n")
+
         print("Distribution 2:")
         print("Chi-squared", self.result['distr2']['chi_squared'])
         print("Critical", self.result['distr2']['critical'])
         print("P-value", self.result['distr2']['p_value'])
+
+        print("\n")
 
         print("Distribution 3:")
         print("Chi-squared", self.result['distr3']['chi_squared'])
         print("Critical", self.result['distr3']['critical'])
         print("P-value", self.result['distr3']['p_value'])
 
+        print("\n")
+
         print("Distribution 4:")
         print("Chi-squared", self.result['distr4']['chi_squared'])
         print("Critical", self.result['distr4']['critical'])
         print("P-value", self.result['distr4']['p_value'])
+
+        print("\n")
+
+        print("Distribution 5:")
+        print("Chi-squared", self.result['distr5']['chi_squared'])
+        print("Critical", self.result['distr5']['critical'])
+        print("P-value", self.result['distr5']['p_value'])
 
     def show_present_data(self):
         print("Sample size:", self.sample_size)
@@ -193,7 +211,7 @@ class MGD:
     def resolve(self):
         self.generate_random_numbers()
         self.show_present_data()
-        self.result = gaussian_distribution.Gaussiandistribution.model_gaussian_distribution(self.amount_of_numbers)
+        self.result = gaussian_distribution.Gaussiandistribution.model_gaussian_distribution(self.amount_of_numbers, self.amount_of_intervals, self.confidence)
         self.printresult()
         pass
 
