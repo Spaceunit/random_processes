@@ -1,8 +1,8 @@
 import sys
-import openpyxl
 from scipy.stats import chi2
 import matrix
 import numpy as np
+import openpyxl
 import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
 import excel_transfer
@@ -10,6 +10,8 @@ import udl
 import rvm
 import bh
 import mgd
+import grp
+#import grp_new
 
 class Work:
     def __init__(self):
@@ -33,7 +35,8 @@ class Work:
             "udl": 10,
             "rvm": 11,
             "bh": 12,
-            "mgd": 13
+            "mgd": 13,
+            "grp": 14
         }
         pass
 
@@ -112,6 +115,11 @@ class Work:
                 Lab0 = mgd.MGD()
                 Lab0.importparam(self.accuracy)
                 Lab0.dostaff()
+                pass
+            elif task == 14:
+                Lab1 = grp.GRP()
+                Lab1.importparam(self.accuracy)
+                Lab1.dostaff()
                 pass
         pass
 
