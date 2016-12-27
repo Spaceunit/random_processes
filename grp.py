@@ -103,6 +103,27 @@ class GRP:
             else:
                 return self.commands[command]
 
+    def inputnewparam(self):
+        task = 0
+        self.a = matrix.Matrix([], "Initial matrix")
+        while (task != 1):
+            print('')
+            print("Enter matrix dimension:")
+            while (task != 1):
+                num = int(input("-> "))
+                print("Input is correct? (enter - yes/n - no)")
+                command = input("-> ")
+                if (command != "n"):
+                    self.a = self.inputmatrix(num)
+                    task = 1
+            task = 0
+            self.a.rename("Initial matrix")
+            self.a.showmatrix()
+            print("Matrix is correct? (enter - yes/n - no)")
+            command = input("-> ")
+            if (command != "n"):
+                task = 1
+
     def showCommands(self):
         print('')
         print("Commands...")

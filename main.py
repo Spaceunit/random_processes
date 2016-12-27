@@ -11,7 +11,7 @@ import rvm
 import bh
 import mgd
 import grp
-#import grp_new
+import pfr
 
 class Work:
     def __init__(self):
@@ -36,7 +36,8 @@ class Work:
             "rvm": 11,
             "bh": 12,
             "mgd": 13,
-            "grp": 14
+            "grp": 14,
+            "pfr": 15
         }
         pass
 
@@ -120,6 +121,11 @@ class Work:
                 Lab1 = grp.GRP()
                 Lab1.importparam(self.accuracy)
                 Lab1.dostaff()
+                pass
+            elif task == 15:
+                Lab2 = pfr.PFR()
+                Lab2.importparam(self.accuracy)
+                Lab2.dostaff()
                 pass
         pass
 

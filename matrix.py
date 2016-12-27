@@ -328,6 +328,18 @@ class Matrix:
             print("Matrixmv: error j != m")
             return 0
 
+    def matrixvm(self, V, accuracy):
+        if (self.len[0] == V.len):
+            R = Vector([], "Result")
+            R.makezero(self.len[0])
+            for i in range(0, self.len[0]):
+                for j in range(0, V.len):
+                    R.vector[i] += round(self.matrix[j][i] * V.vector[j], accuracy)
+            return R
+        else:
+            print("Matrixmv: error j != m")
+            return 0
+
     def matrixsubtract(self, B, accuracy):
         if (self.len[0] == B.len[0] and self.len[1] == B.len[1]):
             R = self.copy()

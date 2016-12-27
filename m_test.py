@@ -1,4 +1,4 @@
-import openpyxl
+#import openpyxl
 import math
 import matrix
 import numpy as np
@@ -12,14 +12,26 @@ import gaussian_distribution
 #Gaussian random processes lab 2
 class GRP:
     def __init__(self):
-
-        self.raw_data = None
-        self.result_data = None
+        self.alpha = matrix.Vector([], "Initial vectror")
+        self.arnum = matrix.Vector([], "Array of random numbers")
+        self.a = matrix.Matrix([[0]], "Initial matrix")
+        #In this case data_array is array of random numbers
+        self.data_array = matrix.Vector([], "Array of our data :)")
+        self.amount_of_numbers = 1
+        self.amount_of_processes = 1
+        self.step = 1
+        self.raw_data = {'amount': {'processes': 1, 'numbers': 1, 'realizations': 1}, 'step': 0.01}
+        self.result_data = {}
+        self.amount_of_intervals = 9
+        self.confidence = 0.95
+        self.chi_squared = None
+        self.critical_value = None
+        self.p_value = None
         self.result = None
 
         self.makedafault()
 
-        self.chud = ud.CheckHUD(self.alpha.vector, len(self.alpha.vector), self.confidence)
+        #self.chud = ud.CheckHUD(self.alpha.vector, len(self.alpha.vector), self.confidence)
 
         self.commands = {
             "none": 0,
@@ -33,7 +45,8 @@ class GRP:
             "start": 9,
             "transfer list": 10,
             "exp list": 11,
-            "show image": 12
+            "show image": 12,
+            "start show image": 13
 
         }
         pass
@@ -46,7 +59,8 @@ class GRP:
         self.setfilename("file.xlsx")
         self.setsheetname("Sheet2")
         self.acount = 1000
-        self.raw_data = {'amount': {'processes': 200, 'numbers': 100, 'realizations': 100}, 'step': 0.01}
+        #self.raw_data = {'amount': {'processes': 200, 'numbers': 100, 'realizations': 100}, 'step': 0.01}
+        self.raw_data = {'amount': {'processes': 2000, 'numbers': 100, 'realizations': 100}, 'step': 0.01}
 
         self.amount_of_numbers = 1000
         self.sample_size = 10
@@ -133,9 +147,6 @@ class GRP:
             elif task == 11:
                 #self.show_expression_list()
                 pass
-            elif task == 12:
-                self.build_image(self.raw_data, self.result_data)
-                pass
         pass
 
     def inputnewdata(self):
@@ -174,47 +185,19 @@ class GRP:
 
 
     def resolve(self):
+        a = [[1, 2, 3],[1, 2, 3],[1, 2, 3]]
+        #b = [[3, 2, 1],[3, 2, 1],[3, 2, 1]]
+        b = [[1, 2, 3], [1, 2, 3], [1, 2, 3]]
+        am = matrix.Matrix(a, "A-matrix")
+        bm = matrix.Matrix(b, "B-matrix")
+        am = am.matrixm(bm, 3)
+        am.showmatrix()
+        am = matrix.Matrix(a, "A-matrix")
+        v = matrix.Vector([1, 2, 3], "V-vector")
+        v2 = am.matrixvm(v, 3)
+        v2.showvector()
         pass
 
-    @staticmethod
-    def model_process_1(raw_data):
-        xi = []
-        for i in range(raw_data['amount']['numbers']):
-            eta = 1 / (1 + math.pi * i ** 2)
-            arg = i * math.pi * raw_data['t']
-            xi.append((math.cos(arg) * raw_data['r1'][i] + math.sin(arg) * raw_data['r2'][i]) * eta)
-        return sum(xi)
-
-    @staticmethod
-    def model_process_2():
-        xi = []
-        for i in range(amount_of_numbers):
-            eta = 1 / math.sqrt(1 + math.pi * i ** 2) ** 2
-            arg = r3[i] * t
-            xi.append((math.cos(arg) * r1[i] + math.sin(arg) * r2[i]) * eta)
-
-        return sum(xi)
-        pass
-
-    @staticmethod
-    def model_process_3():
-        pass
-
-    @staticmethod
-    def model_process_4():
-        pass
-
-    def build_image(self, raw_data, result_data):
-        pass
-
-    def sync_data(self):
-        pass
-
-
-'''
-r1 = [math.sqrt(-2 * math.log(random.random())) * math.cos(2 * math.pi * random.random()) for _ in
-          range(raw_data['amount']['numbers'])]
-    r2 = [math.sqrt(-2 * math.log(random.random())) * math.sin(2 * math.pi * random.random()) for _ in
-          range(raw_data['amount']['numbers'])]
-    r3 = [random.uniform(i * math.pi, (i + 1) * math.pi) for i in range(raw_data['amount']['numbers'])]
-'''
+W = GRP()
+W.makedafault()
+W.resolve()
